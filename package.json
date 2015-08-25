@@ -1,0 +1,30 @@
+{
+  "name": "text-scrubber",
+  "version": "0.0.1",
+  "description": "scrub, clean, and massage single or multi lines of text far beyond find & replace",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bnvk/text-scrubber"
+  },
+  "keywords": [
+    "text",
+    "text",
+    "string",
+    "processing"
+  ],
+  "author": {
+    "name":"Brennan Novak",
+    "email":"hi@bnvk.me"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bnvk/text-scrubber/issues"
+  },
+  "dependencies": {
+    "underscore": "~1.8.3"
+  }
+}
