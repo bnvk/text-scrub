@@ -72,11 +72,11 @@ describe('TextScrub', function(){
 
   describe('TextScrub.Spliter()', function(){
     it('Splits string into sub categories and structures accordingly', function() {
-      var line_fixed = TextScrub.Splitter({ term: '.sbd/', depth: 2, overage: 'join', joiner: '-' }, line_splitter, { unsorted: [], groups: {}})
+      var line_fixed = TextScrub.Splitter({ term: '.sbd/', depth: 2, overage: 'join', joiner: '-' }, line_splitter)
       assert.equal('USA-East Coast-Cities-New York', line_fixed.groups.Clients[0])
     })
     it('Splits string into sub categories and structures accordingly', function() {
-      var line_fixed = TextScrub.Splitter({ term: '.sbd/', depth: 2, overage: 'unsorted' }, line_splitter, { unsorted: [], groups: {}})
+      var line_fixed = TextScrub.Splitter({ term: '.sbd/', depth: 2, overage: 'unsorted' }, line_splitter)
       assert.equal('USA', line_fixed.unsorted[0])
       assert.equal('East Coast', line_fixed.unsorted[1])
       assert.equal('New York', line_fixed.groups.Clients[0])
