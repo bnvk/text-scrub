@@ -11,12 +11,27 @@ var output = {
 // Args: unique
 var unique = [];
 
+var line_regex = 'yo dog, I herd you like some % of boots@cats.com and bomb.com will pay $999.99 for it'
 var line_multi = '/home/root/path/thunderbird-profile/ImapMail/account-6.com/Clients.sbd/USA.sbd/East Coast.sbd/Cities.sbd/New York'
 var line_unique = ['Dogs', 'Dogs', 'Dogs', 'Cats']
 var line_splitter = 'Clients.sbd/USA.sbd/East Coast.sbd/Cities.sbd/New York'
 
-
 describe('TextScrub', function(){
+
+  describe('TextScrub.Extractor()', function() {
+    it('Extract email addresses with regular expression', function() {
+      line_fixed = TextScrub.Extractor(['emails'], line_regex)
+      assert.equal('boots@cats.com', line_fixed.emails[0])
+    })
+    it('Extract urls with regular expression', function() {
+      line_fixed = TextScrub.Extractor(['urls'], line_regex)
+      assert.equal('cats.com', line_fixed.urls[0])
+    })
+    it('Extract currency with regular expression', function() {
+      line_fixed = TextScrub.Extractor(['currency'], line_regex)
+      assert.equal('999.99', line_fixed.currency[0])
+    })
+  })
 
   describe('TextScrub.Swap()', function() {
     it('Swaps string contained within string', function() {
