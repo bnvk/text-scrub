@@ -1,6 +1,6 @@
 {
   "name": "text-scrub",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "scrub, clean, and massage single or multi lines of text far beyond find & replace",
   "main": "index.js",
   "scripts": {
