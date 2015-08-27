@@ -38,6 +38,10 @@ describe('TextScrub', function(){
       line_fixed = TextScrub.Swap({find:'thunderbird-profile/ImapMail/account-6.com/', replace: ''}, line_multi)
       assert.equal('/home/root/path/Clients.sbd/USA.sbd/East Coast.sbd/Cities.sbd/New York', line_fixed)
     })
+    it('Swaps string that matches regex', function() {
+      line_fixed = TextScrub.Swap({regex:'url', replace: 'null'}, line_multi)
+      assert.equal('/home/root/path/thunderbird-profile/ImapMail/null/null/null/East null/null/New York', line_fixed)
+    })
   })
 
   describe('TextScrub.Trim()', function() {
