@@ -2,21 +2,23 @@ var _ = require('underscore')
 
 var Scrubber = {}
 
-Scrubber.Regex    = require('./lib/regex')
-Scrubber.Swap     = require('./lib/swap')
-Scrubber.Trim     = require('./lib/trim')
-Scrubber.Grow     = require('./lib/grow')
-Scrubber.Extractor= require('./lib/extractor')
-Scrubber.Unique   = require('./lib/unique')
-Scrubber.Splitter = require('./lib/splitter')
+Scrubber.regex    = require('./lib/regex')
+Scrubber.swap     = require('./lib/swap')
+Scrubber.trim     = require('./lib/trim')
+Scrubber.grow     = require('./lib/grow')
+Scrubber.extractor= require('./lib/extractor')
+Scrubber.unique   = require('./lib/unique')
+Scrubber.splitter = require('./lib/splitter')
 
-Scrubber.Wash = function(tools, line) {
-
-  console.log('Processing on ' + line + ' ---------------------------')
-
-  _.each(tools, function(opts, tool) {
-    line = Scrubber[tool](opts, line)
-    console.log('Post Scrubber tool line: ' + line)
+Scrubber.wash = function(tools, line, output) {
+  //console.log('---------------------------------------------------')
+  //console.log(line)
+  _.each(tools, function(tool, key) {
+    if (tool.tool && _.indexOf(['swap', 'trim', 'grow', 'extractor', 'unique', 'splitter'], tool.tool) > -1) {
+      line = Scrubber[tool.tool](tool, line)
+    } else {
+      line = 'TextScrub invalid tool: ' + JSON.stringify(tool)
+    }
   })
 
   return line
