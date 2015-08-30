@@ -18,69 +18,84 @@ var line_splitter = 'Clients.sbd/USA.sbd/East Coast.sbd/Cities.sbd/New York'
 
 describe('TextScrub', function(){
 
-  describe('TextScrub.Extractor()', function() {
+  describe('TextScrub.extractor()', function() {
     it('Extract email addresses with regular expression', function() {
-      line_fixed = TextScrub.Extractor(['emails'], line_regex)
+      line_fixed = TextScrub.extractor(['emails'], line_regex)
       assert.equal('boots@cats.com', line_fixed.emails[0])
     })
     it('Extract urls with regular expression', function() {
-      line_fixed = TextScrub.Extractor(['urls'], line_regex)
+      line_fixed = TextScrub.extractor(['urls'], line_regex)
       assert.equal('cats.com', line_fixed.urls[0])
     })
     it('Extract currency with regular expression', function() {
-      line_fixed = TextScrub.Extractor(['currency'], line_regex)
+      line_fixed = TextScrub.extractor(['currency'], line_regex)
       assert.equal('999.99', line_fixed.currency[0])
     })
   })
 
-  describe('TextScrub.Swap()', function() {
+  describe('TextScrub.swap()', function() {
     it('Swaps string contained within string', function() {
-      line_fixed = TextScrub.Swap({find:'thunderbird-profile/ImapMail/account-6.com/', replace: ''}, line_multi)
+      line_fixed = TextScrub.swap({find:'thunderbird-profile/ImapMail/account-6.com/', replace: ''}, line_multi)
       assert.equal('/home/root/path/Clients.sbd/USA.sbd/East Coast.sbd/Cities.sbd/New York', line_fixed)
     })
     it('Swaps string that matches all instances of a regex', function() {
-      line_fixed = TextScrub.Swap({regex:'url', replace: 'null'}, line_multi)
+      line_fixed = TextScrub.swap({regex:'url', replace: 'null'}, line_multi)
       assert.equal('/home/root/path/thunderbird-profile/ImapMail/null/null/null/East null/null/New York', line_fixed)
     })
     it('Swaps string that matches specified item of regex', function() {
-      line_fixed = TextScrub.Swap({regex:'url', item: 1, replace: 'boots-and-cats'}, line_multi)
+      line_fixed = TextScrub.swap({regex:'url', item: 1, replace: 'boots-and-cats'}, line_multi)
       assert.equal('/home/root/path/thunderbird-profile/ImapMail/boots-and-cats/Clients.sbd/USA.sbd/East Coast.sbd/Cities.sbd/New York', line_fixed)
     })
   })
 
-  describe('TextScrub.Trim()', function() {
+  describe('TextScrub.trim()', function() {
     it('Trims start and end using number opts', function() {
-      line_fixed = TextScrub.Trim({start: 16, end: 34}, line_multi)
+      line_fixed = TextScrub.trim({start: 16, end: 34}, line_multi)
       assert.equal('thunderbird-profile/ImapMail/account-6.com/Clients.sbd/USA.sbd/', line_fixed)
     })
     it('Trims start and end using string opts', function() {
-      line_fixed = TextScrub.Trim({start: '/home/root/path/thunderbird-profile/ImapMail/', end: '/Clients.sbd/USA.sbd/East Coast.sbd/Cities.sbd/New York'}, line_multi)
+      line_fixed = TextScrub.trim({start: '/home/root/path/thunderbird-profile/ImapMail/', end: '/Clients.sbd/USA.sbd/East Coast.sbd/Cities.sbd/New York'}, line_multi)
       assert.equal('account-6.com', line_fixed)
     })
   })
 
-  describe('TextScrub.Grow()', function(argument) {
-    it('Grows string by adding to start and end', function() {
-      line_fixed = TextScrub.Grow({start: '/home/root/path/', end: '/Brooklyn'}, line_splitter)
+  describe('TextScrub.grow()', function(argument) {
+    it('grows string by adding to start and end', function() {
+      line_fixed = TextScrub.grow({start: '/home/root/path/', end: '/Brooklyn'}, line_splitter)
       assert.equal('/home/root/path/Clients.sbd/USA.sbd/East Coast.sbd/Cities.sbd/New York/Brooklyn', line_fixed)
     })
   })
 
-  describe('TextScrub.Unique()', function(argument) {
+  describe('TextScrub.unique()', function(argument) {
     it('Makes contents of array unique', function() {
-      line_fixed = TextScrub.Unique({}, line_unique)
+      line_fixed = TextScrub.unique({}, line_unique)
       assert.equal('Dogs', line_fixed[0])
       assert.equal('Cats', line_fixed[1])
     })
   })
 
-  describe('TextScrub.Spliter()', function(){
+  describe('TextScrub.spliter()', function(){
     it('Splits string into sub categories and structures accordingly', function() {
-      var line_fixed = TextScrub.Splitter({ term: '.sbd/', depth: 2, overage: 'join', joiner: '-' }, line_splitter)
+      var line_fixed = TextScrub.splitter({ term: '.sbd/', depth: 2, overage: 'join', joiner: '-' }, line_splitter)
       assert.equal('USA-East Coast-Cities-New York', line_fixed.groups.Clients[0])
     })
     it('Splits string into sub categories and structures accordingly', function() {
-      var line_fixed = TextScrub.Splitter({ term: '.sbd/', depth: 2, overage: 'unsorted' }, line_splitter)
+      var line_fixed = TextScrub.splitter({ term: '.sbd/', depth: 2, overage: 'unsorted' }, line_splitter)
+      assert.equal('USA', line_fixed.unsorted[0])
+      assert.equal('East Coast', line_fixed.unsorted[1])
+      assert.equal('New York', line_fixed.groups.Clients[0])
+    })
+  })
+
+  describe('TextScrub.Wash()', function(){
+    it('Checks tool exists, is allowed, and chains a few events', function() {
+      var tools = [
+        { tool: 'trim', start: '/home/root/path/thunderbird-profile/ImapMail/' },
+        { tool: 'swap', regex: 'url', item: 1, replace: '' },
+        { tool: 'trim', start: '/' },
+        { tool: 'splitter', term: '.sbd/', depth: 2, overage: 'unsorted', output: output },
+      ]
+      var line_fixed = TextScrub.wash(tools, line_multi)
       assert.equal('USA', line_fixed.unsorted[0])
       assert.equal('East Coast', line_fixed.unsorted[1])
       assert.equal('New York', line_fixed.groups.Clients[0])
