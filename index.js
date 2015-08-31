@@ -7,7 +7,6 @@ Scrubber.swap     = require('./lib/swap')
 Scrubber.trim     = require('./lib/trim')
 Scrubber.grow     = require('./lib/grow')
 Scrubber.extractor= require('./lib/extractor')
-Scrubber.unique   = require('./lib/unique')
 Scrubber.splitter = require('./lib/splitter')
 
 Scrubber.wash = function(tools, line, output) {
