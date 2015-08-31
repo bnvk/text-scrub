@@ -81,8 +81,8 @@ return        // object { 'emails': {}, 'urls': {}, 'currency': {} }
 TextScrub.swap(opts, line)
 
 opts.find     // string
-opts.regex    // string (email, url, or currency)
-opts.item     // integer (only used to select a regex option)
+opts.regex    // string   email, url, or currency
+opts.item     // integer  (only used with regex)
 opts.replace  // string
 
 return        // string
@@ -94,11 +94,11 @@ return        // string
 TextScrub.splitter(opts, line)
 
 opts.term     // string
-opts.depth    // integer
-opts.overage  // ignore, join, unsorted
-opts.joiner   // string
-opts.unique   // bool
-opts.output   // object { unsorted: [], groups: {} }
+opts.depth    // integer  2
+opts.overage  // string   ignore, join, unsorted
+opts.joiner   // string   ','
+opts.unique   // bool     true
+opts.output   // object   { unsorted: [], groups: {} }
 
 return        //
 ```
