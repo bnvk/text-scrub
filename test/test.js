@@ -82,14 +82,6 @@ describe('TextScrub', function(){
     })
   })
 
-  describe('TextScrub.unique()', function(argument) {
-    it('Makes contents of array unique', function() {
-      line_fixed = TextScrub.unique({}, line_unique)
-      assert.equal('Dogs', line_fixed[0])
-      assert.equal('Cats', line_fixed[1])
-    })
-  })
-
   describe('TextScrub.spliter()', function(){
     it('Splits string and ignores overage', function() {
       var line_fixed = TextScrub.splitter({ term: '.sbd/', depth: 2, overage: 'ignore' }, line_splitter)
