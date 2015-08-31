@@ -16,6 +16,7 @@ var TextScrub = require('text-scrub')
 - Add bits and pieces to a line of text
 - Transform file paths into usable data structures
 - You are *not* the RegEx wizard that you wish you were
+- Even if you were a RegEx wizard, the code would be gnarly
 
 #### Examples
 
