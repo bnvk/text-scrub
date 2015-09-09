@@ -34,6 +34,13 @@ var line_nested_multi = '/home/root/path/thunderbird-profile/ImapMail/account-5.
 
 describe('TextScrub', function(){
 
+  describe('TextScrub.clean()', function(argument) {
+    it('Removes whitespace form start & end', function() {
+      line_fixed = TextScrub.clean({}, '    New York & Brooklyn      ')
+      assert.equal('New York & Brooklyn', line_fixed)
+    })
+  })
+
   describe('TextScrub.extractor()', function() {
     it('Extract email addresses with regular expression', function() {
       line_fixed = TextScrub.extractor(['emails'], line_regex)

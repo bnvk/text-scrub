@@ -3,6 +3,7 @@ var _ = require('underscore')
 var Scrubber = {}
 
 Scrubber.regex    = require('./lib/regex')
+Scrubber.clean    = require('./lib/clean')
 Scrubber.swap     = require('./lib/swap')
 Scrubber.trim     = require('./lib/trim')
 Scrubber.grow     = require('./lib/grow')
@@ -13,7 +14,7 @@ Scrubber.wash = function(tools, line, output) {
   //console.log('---------------------------------------------------')
   //console.log(line)
   _.each(tools, function(tool, key) {
-    if (tool.tool && _.indexOf(['swap', 'trim', 'grow', 'extractor', 'unique', 'splitter'], tool.tool) > -1) {
+    if (tool.tool && _.indexOf(['clean', 'swap', 'trim', 'grow', 'extractor', 'unique', 'splitter'], tool.tool) > -1) {
       line = Scrubber[tool.tool](tool, line)
     } else {
       line = 'TextScrub invalid tool: ' + JSON.stringify(tool)

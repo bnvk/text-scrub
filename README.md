@@ -43,6 +43,14 @@ The resulting text would be
 
 ### Tools & Options
 
+**clean** removes whiteapce from start and end of input
+
+```
+TextScrub.clean(opts, line)
+
+return        // string
+```
+
 **trim** cuts a specified string (or character count) from the start & end of the input
 
 ```
