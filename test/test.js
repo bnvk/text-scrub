@@ -110,10 +110,10 @@ describe('TextScrub', function(){
     it('Washes multiple lines of complex object with chained events and splitter', function() {
       var output = { unsorted: [], groups: {} }
       var tools = [
-        { tool: 'trim', start: '/home/root/path/thunderbird-profile/ImapMail/' },
-        { tool: 'swap', regex: 'url', item: 1, replace: '' },
-        { tool: 'trim', start: '/' },
-        { tool: 'splitter', term: '.sbd/', depth: 2, overage: 'unsorted', output: output },
+        { scrub: 'trim', start: '/home/root/path/thunderbird-profile/ImapMail/' },
+        { scrub: 'swap', regex: 'url', item: 1, replace: '' },
+        { scrub: 'trim', start: '/' },
+        { scrub: 'splitter', term: '.sbd/', depth: 2, overage: 'unsorted', output: output },
       ]
       var lines = line_nested_multi.split('\n')
       _.each(lines, function(line, key) {

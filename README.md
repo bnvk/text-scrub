@@ -30,8 +30,8 @@ TextScrub can either call specific filters manually such as `TextScrub.trim(star
 
 ```
 var new_text = TextScrub.Wash([
-  { tool: 'trim', start: '[doge@fort]$ ' },
-  { tool: 'swap', find: 'path/thunderbird-profile/ImapMail/account-6.com/', replace: 'messages/' }
+  { scrub: 'trim', start: '[doge@fort]$ ' },
+  { scrub: 'swap', find: 'path/thunderbird-profile/ImapMail/account-6.com/', replace: 'messages/' }
 ], old_text)
 ```
 
