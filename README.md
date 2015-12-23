@@ -1,7 +1,14 @@
 Text Scrub
 ==========
 
+[![NPM](https://nodei.co/npm/text-scrub.png)](https://nodei.co/npm/text-scrub/)
+
 Perform trim, grow, extract, scrub, deduplication, and structured splitting operations on lines of text in a chainable fashion. This ain't yo grand daddy's find & replace tool.
+
+```
+npm install text-scrub
+```
+
 
 Include `text-scrub` in your server side node.js or client side app using [browserify](https://www.npmjs.com/package/browserify) today!
 
